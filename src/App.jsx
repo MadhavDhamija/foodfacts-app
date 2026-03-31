@@ -1,22 +1,19 @@
-import { Routes, Route } from 'react-router-dom'
-import NavBar from './components/NavBar'
-import HomePage from './pages/HomePage'
-import DetailPage from './pages/DetailPage'
-import SavedPage from './pages/SavedPage'
+function savedReducer(state, action) {
+  switch (action.type) {
+    case 'ADD_PRODUCT':
+      // avoid duplicates by checking code
+      if (state.find(p => p.code === action.product.code)) {
+        return state
+      }
+      return [...state, action.product]
 
-function App() {
-  return (
-    <div>
-      <NavBar />
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/product/:barcode" element={<DetailPage />} />
-          <Route path="/saved" element={<SavedPage />} />
-        </Routes>
-      </main>
-    </div>
-  )
+    case 'REMOVE_PRODUCT':
+      return state.filter(p => p.code !== action.code)
+
+    case 'CLEAR_ALL':
+      return []
+
+    default:
+      return state
+  }
 }
-
-export default App
