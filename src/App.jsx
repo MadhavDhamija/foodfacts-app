@@ -1,12 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { Routes, Route } from 'react-router-dom'
+import NavBar from './components/NavBar'
+import HomePage from './pages/HomePage'
+import DetailPage from './pages/DetailPage'
+import SavedPage from './pages/SavedPage'
+
 function App() {
   return (
     <div>
-      <h1>FoodFacts</h1>
+      <NavBar />
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/product/:barcode" element={<DetailPage />} />
+          <Route path="/saved" element={<SavedPage />} />
+        </Routes>
+      </main>
     </div>
   )
 }
